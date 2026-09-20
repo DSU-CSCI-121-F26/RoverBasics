@@ -49,19 +49,52 @@ Getting a prediction **wrong** and then seeing why is worth more than getting it
 
 ## Setup — do this once
 
-**Fork first.** Click **Fork** at the top right of this page — *not* "Use this
-template". Then:
+> ## ⚠️ Fork it. Do not clone this repository.
+>
+> **You cannot push to this repo** — you do not have permission, and you should not. A
+> fork is *your own copy on GitHub*, which you can push to and which I can read.
+> **No fork, no way to hand anything in.**
+>
+> This is the single most common way work gets lost in this class.
+
+### Step 1 · Fork it, in the browser
+
+Click **Fork** at the top right of **this page** — *not* "Use this template", and not the
+green **Code** button yet.
+
+When it finishes you are looking at a **different page**. The name at the top should read:
+
+```
+your-username / RoverBasics
+  forked from DSU-CSCI-121-F26/RoverBasics
+```
+
+**If the name still says `DSU-CSCI-121-F26`, the fork did not happen.** Stop and do it
+again. Everything below depends on this.
+
+### Step 2 · Clone YOUR fork
+
+Use the green **Code** button *on your own page*, or type it with your username in it:
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/RoverBasics.git
 cd RoverBasics
+```
+
+Put your actual GitHub username where it says `YOUR-USERNAME`. There is no account called
+`YOUR-USERNAME`.
+
+### Step 3 · Check it, before you write a line of code
+
+```bash
 git remote -v
 ```
 
-That last line must print **your** username. If it says `DSU-CSCI-121-F26`, you cloned
-mine instead of your fork. Go back and fork it.
+Read what it prints. It **must** contain **your** username. If it says
+`DSU-CSCI-121-F26`, you cloned mine — delete the folder, go back to step 1, and start
+again. Anything you write in the wrong folder is work I will never see.
 
-Now run it:
+### Step 4 · Run it
 
 ```bash
 ./mvnw compile exec:java          # Windows:  mvnw.cmd compile exec:java
