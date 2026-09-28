@@ -1,4 +1,5 @@
 package rover;
+import java.util.Scanner;
 
 /**
  * CSCI-121 · Week 5 · RoverBasics
@@ -33,10 +34,26 @@ public class Main {
         System.out.println("=== RoverBasics ===");
 
         // ── MONDAY ──────────────────────────────────────────────────────────
+        //Prediction missionCode+1 prints the next character since its Char
         step1Variables();
-        // step2Battery();
-        // step3Strings();
-        // step4Input();
+        String name = "Sparky";
+        int wheels = 6;
+        double topSpeed = 0.75;
+        boolean headlightsOn = false;
+        char missionCode = 'B';
+
+        System.out.println("name         = " + name);
+        System.out.println("wheels       = " + wheels);
+        System.out.println("topSpeed     = " + topSpeed);
+        System.out.println("headlightsOn = " + headlightsOn);
+        System.out.println("missionCode  = " + missionCode);
+
+        System.out.println("missionCode + 1       = " + (missionCode + 1));
+        System.out.println("(char)(missionCode+1) = " + (char) (missionCode + 1));
+
+         step2Battery();
+         step3Strings();
+         step4Input();
 
         // ── TUESDAY ─────────────────────────────────────────────────────────
         // step5FirstClass();
@@ -72,6 +89,27 @@ public class Main {
         System.out.println("--- Step 2: how full is the battery? ---");
 
         // ▼ README · Step 2.
+        int capacity = 300;
+        int charge   = 150;
+
+        int wrong = charge / capacity * 100;//does the division first
+        int right = charge * 100 / capacity;
+        double exact = (double) charge * 100 / capacity;
+
+        System.out.println("capacity = " + capacity + ", charge = " + charge);
+        System.out.println("wrong = " + wrong + "%");
+        System.out.println("right = " + right + "%");
+        System.out.println("exact = " + exact + "%");
+
+        int smallCapacity = 3;
+        int smallCharge   = 2;
+
+        int twoThirds = smallCharge * 100 / smallCapacity;
+        double twoThirdsExact = (double) smallCharge * 100 / smallCapacity;
+
+        System.out.println("2 of 3 as an int    = " + twoThirds + "%");
+        System.out.println("2 of 3 as a double  = " + twoThirdsExact + "%");
+        System.out.println("Java did not round. It chopped.");
 
     }
 
@@ -85,6 +123,28 @@ public class Main {
         System.out.println("--- Step 3: strings ---");
 
         // ▼ README · Step 3.
+        String label = "Rover Sparky";
+
+        System.out.println("label            = " + label);
+        System.out.println("label.length()   = " + label.length());
+        System.out.println("label.charAt(6)  = " + label.charAt(6));
+        System.out.println("label.substring(6) = " + label.substring(6));
+
+        label.toUpperCase();//Strings are immutable
+
+        System.out.println("after toUpperCase(), label = " + label);
+
+        String shouty = label.toUpperCase();
+
+        System.out.println("shouty = " + shouty);
+
+        String typedByHand = new String("Rover Sparky");
+
+        boolean sameObject = label == typedByHand;//checks whether both points to the same object in memory
+        boolean sameText = label.equals(typedByHand);//same text
+
+        System.out.println("label == typedByHand      -> " + sameObject);
+        System.out.println("label.equals(typedByHand) -> " + sameText);
 
     }
 
@@ -98,7 +158,16 @@ public class Main {
     private static void step4Input() {
         System.out.println();
         System.out.println("--- Step 4: ask the operator ---");
+        Scanner in = new Scanner(System.in);
 
+        System.out.print("Name your rover: ");
+        String roverName = in.nextLine();
+
+        System.out.print("How many wheels? ");
+        int wheelCount = in.nextInt();
+
+        System.out.println(roverName + " reporting for duty on " + wheelCount + " wheels.");
+//Print texts without going to a new line while println goes to a new line
         // ▼ README · Step 4.
 
     }
@@ -115,7 +184,20 @@ public class Main {
         System.out.println("--- Step 5: one servo ---");
 
         // ▼ README · Step 5.
+        Servo mast = new Servo("Mast");
 
+        System.out.println("name         = " + mast.getName());
+        System.out.println("starts at    = " + mast.getAngle());
+        System.out.println("isCentered() = " + mast.isCentered());
+
+        mast.turnTo(45);
+        System.out.println("after turnTo(45)  = " + mast.getAngle());
+
+        mast.turnTo(240);
+        System.out.println("after turnTo(240) = " + mast.getAngle());
+
+        mast.turnTo(-40);
+        System.out.println("after turnTo(-40) = " + mast.getAngle());
     }
 
 
@@ -128,6 +210,14 @@ public class Main {
         System.out.println("--- Step 6: a second constructor ---");
 
         // ▼ README · Step 6.
+        Servo a = new Servo("Arm");
+        Servo b = new Servo("Boom", 30);
+
+        System.out.println(a.getName() + " starts at " + a.getAngle());
+        System.out.println(b.getName() + " starts at " + b.getAngle());
+
+        Servo c = new Servo("Cheat", 500);
+        System.out.println(c.getName() + " starts at " + c.getAngle());
 
     }
 
@@ -143,7 +233,26 @@ public class Main {
         System.out.println("--- Step 7: a rover owns two servos ---");
 
         // ▼ README · Step 7.
+        Rover sparky = new Rover("Sparky");
 
+        System.out.println("left  starts at " + sparky.getLeftServo().getAngle());
+        System.out.println("right starts at " + sparky.getRightServo().getAngle());
+
+        sparky.steerLeft(30);
+        System.out.println("after steerLeft(30):  left = "
+                + sparky.getLeftServo().getAngle()
+                + ", right = " + sparky.getRightServo().getAngle());
+
+        Servo borrowed = sparky.getLeftServo();
+        borrowed.turnTo(120);
+
+        System.out.println("borrowed.getAngle()            = " + borrowed.getAngle());
+        System.out.println("sparky.getLeftServo().getAngle = "
+                + sparky.getLeftServo().getAngle());
+        System.out.println("Same object? " + (borrowed == sparky.getLeftServo()));
+
+        Rover other = new Rover("Bolt");
+        System.out.println("Bolt's left servo is still at " + other.getLeftServo().getAngle());
     }
 
 
@@ -156,6 +265,18 @@ public class Main {
         System.out.println("--- Step 8: four servos in an array ---");
 
         // ▼ README · Step 8.
+        Servo[] servos = new Servo[4];
+
+        System.out.println("servos.length = " + servos.length);
+        System.out.println("servos[0]     = " + servos[0]);
+
+        for (int i = 0; i < servos.length; i++) {
+            servos[i] = new Servo("S" + i);
+        }
+
+        for (int i = 0; i < servos.length; i++) {
+            System.out.println(servos[i]);
+        }
 
     }
 
@@ -173,9 +294,43 @@ public class Main {
     private static void step9Methods() {
         System.out.println();
         System.out.println("--- Step 9: methods of your own ---");
+        System.out.println("percent(150, 300) = " + percent(150, 300));
+        System.out.println("percent(2, 3)     = " + percent(2, 3));
+        System.out.println("percent(150)      = " + percent(150));
+
+        Servo mast = new Servo("Mast");
+        mast.turnTo(20);
+        System.out.println("before centerIt   = " + mast.getAngle());
+        centerIt(mast);
+        System.out.println("after  centerIt   = " + mast.getAngle());
+
+        Servo boom = new Servo("Boom");
+        boom.turnTo(20);
+        System.out.println("before replaceIt  = " + boom);
+        replaceIt(boom);
+        System.out.println("after  replaceIt  = " + boom);
+
+// System.out.println(runningTotal);
 
         // ▼ README · Step 9, part 1.
 
+    }
+    private static int percent(int part, int whole) {
+        int runningTotal = part * 100;
+        return runningTotal / whole;
+    }
+
+    private static int percent(int part) {
+        return percent(part, 300);
+    }
+
+    private static void centerIt(Servo s) {
+        s.turnTo(90);
+    }
+
+    private static void replaceIt(Servo s) {
+        s = new Servo("Replacement");
+        s.turnTo(90);
     }
 
     // ▼ README · Step 9, part 2 — the four methods go below this line, INSIDE
