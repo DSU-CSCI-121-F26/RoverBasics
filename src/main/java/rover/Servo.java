@@ -28,5 +28,46 @@ package rover;
 public class Servo {
 
     // ▼ README · Step 5, then Step 6.
+    private final String name;
+    private int angle;
+
+    public Servo(String name, int startingAngle) {
+        this.name = name;
+        turnTo(startingAngle);
+    }
+    public Servo(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void turnTo(int degrees) {
+        if (degrees > 180) {
+            angle = 180;
+        } else if (degrees < 0) {
+            angle = 0;
+        } else {
+            angle = degrees;
+        }
+    }
+
+    //Step A
+    public void turnBy(int degrees){
+        turnTo(angle + degrees);
+    }
+    public boolean isCentered() {
+        return angle == 90;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " @ " + getAngle();
+    }
 
 }
