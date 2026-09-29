@@ -233,7 +233,7 @@ public class Main {
         System.out.println("--- Step 7: a rover owns two servos ---");
 
         // ▼ README · Step 7.
-        Rover sparky = new Rover("Sparky");
+        Rover sparky = new Rover("Sparky",100);//change
 
         System.out.println("left  starts at " + sparky.getLeftServo().getAngle());
         System.out.println("right starts at " + sparky.getRightServo().getAngle());
@@ -251,7 +251,7 @@ public class Main {
                 + sparky.getLeftServo().getAngle());
         System.out.println("Same object? " + (borrowed == sparky.getLeftServo()));
 
-        Rover other = new Rover("Bolt");
+        Rover other = new Rover("Bolt",100);// change
         System.out.println("Bolt's left servo is still at " + other.getLeftServo().getAngle());
     }
 
@@ -358,36 +358,37 @@ public class Main {
         // ▼ README · Stretch. Uncomment a block once you have written its goal.
 
         // ── A · Servo.turnBy(int) ───────────────────────────────────────────
-        // Servo s = new Servo("Mast");
-        // s.turnBy(30);
-        // System.out.println("A · after turnBy(30) from 90 = " + s.getAngle());
-        // s.turnBy(200);
-        // System.out.println("A · after turnBy(200)        = " + s.getAngle());
+
+         Servo s = new Servo("Mast");
+         s.turnBy(30);
+         System.out.println("A · after turnBy(30) from 90 = " + s.getAngle());
+         s.turnBy(200);
+         System.out.println("A · after turnBy(200)        = " + s.getAngle());
 
         // ── B · Rover.centerAll() ───────────────────────────────────────────
-        // Rover r = new Rover("Sparky");
-        // r.steerLeft(10);
-        // r.steerRight(170);
-        // r.centerAll();
-        // System.out.println("B · after centerAll: " + r.getLeftServo().getAngle()
-        //         + " and " + r.getRightServo().getAngle());
+         Rover r = new Rover("Sparky",100);
+         r.steerLeft(10);
+         r.steerRight(170);
+         r.centerAll();
+        System.out.println("B · after centerAll: " + r.getLeftServo().getAngle()
+                + " and " + r.getRightServo().getAngle());
 
         // ── C · the battery ─────────────────────────────────────────────────
-        // System.out.println("C · starts at        " + r.batteryPercent() + "%");
-        // r.drain(150);
-        // System.out.println("C · after drain(150) " + r.batteryPercent() + "%");
-        // r.drain(999);
-        // System.out.println("C · after drain(999) " + r.getCharge() + " mAh, "
-        //         + r.batteryPercent() + "%");
+         System.out.println("C · starts at        " + r.batteryPercent() + "%");
+         r.drain(150);
+         System.out.println("C · after drain(150) " + r.batteryPercent() + "%");
+         r.drain(999);
+         System.out.println("C · after drain(999) " + r.getCharge() + " mAh, "
+                 + r.batteryPercent() + "%");
 
         // ── D · Rover.hasName(String) ───────────────────────────────────────
-        // System.out.println("D · hasName(new String(\"Sparky\")) = "
-        //         + r.hasName(new String("Sparky")));
-        // System.out.println("D · hasName(\"Bolt\")              = " + r.hasName("Bolt"));
+         System.out.println("D · hasName(new String(\"Sparky\")) = "
+                 + r.hasName(new String("Sparky")));
+         System.out.println("D · hasName(\"Bolt\")              = " + r.hasName("Bolt"));
 
         // ── E · Rover.toString() ────────────────────────────────────────────
-        // r.steerLeft(45);
-        // System.out.println("E · " + r);
+         r.steerLeft(45);
+         System.out.println("E · " + r);
 
         // ── F · two methods over an array ───────────────────────────────────
         // Servo[] servos = {
@@ -406,5 +407,26 @@ public class Main {
     // widest(Servo[])        -> the one Servo with the largest angle
     //
     // Both loop over the array. Neither one prints anything - they RETURN.
+    public static int countCentered(Servo[] servos ){
+        int count = 0;
+
+        for (Servo s : servos){
+            if (s.getAngle() == 90){
+                count++;
+            }
+        }
+        return count;
+
+    }
+    public static Servo widest(Servo[] servos){
+        Servo widest = servos[0];//assume teh first is the widest
+
+        for (int i = 1; i<servos.length;i++){
+            if (servos[i].getAngle()>widest.getAngle()){
+                widest = servos[i];
+            }
+        }
+        return widest;
+    }
 
 }

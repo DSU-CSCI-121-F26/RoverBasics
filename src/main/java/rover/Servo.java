@@ -57,6 +57,10 @@ public class Servo {
         }
     }
 
+    //Step A
+    public void turnBy(int degrees){
+        turnTo(angle + degrees);
+    }
     public boolean isCentered() {
         return angle == 90;
     }
